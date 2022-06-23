@@ -47,6 +47,7 @@ app.post('/api/v1/user', (req, res) => {
 // PUT method
 app.put('/api/v1/user/:id', (req, res) => {
     let index = buscaCadastro(req.params.id);
+    // esta alterando somente o name, o restante não
     formulario[index].name = req.body.name;
     res.json(formulario);
 });
