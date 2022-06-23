@@ -27,15 +27,29 @@ app.get('/', (req, res) => {
     res.status(200).send('Formulario');
 });
 
-// Metódo GET
+// GET method
 app.get('/api/v1/user', (req, res) => {
     res.status(200).json(formulario)
 });
 
-// Metódo POST
+// POST method
 app.post('/api/v1/user', (req, res) => {
     formulario.push(req.body);
     res.status(201).send('O formulario foi cadastrado com sucesso');
 });
+
+// PUT method
+app.put('/api/v1/user/:id', (req, res) => {
+    let index = buscaCadastro(req.params.id);
+    formulario[index].name = req.body.name;
+    res.json(formulario);
+});
+
+
+// Function to fetch ID
+function buscaCadastro(id) {
+    return formulario.findIndex(cadastro => cadastro.id == id);
+}
+
 
 export default app
