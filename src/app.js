@@ -32,4 +32,10 @@ app.get('/api/v1/user', (req, res) => {
     res.status(200).json(formulario)
 });
 
+// Metódo POST
+app.post('/api/v1/user', (req, res) => {
+    formulario.push(req.body);
+    res.status(201).send('O formulario foi cadastrado com sucesso');
+});
+
 export default app
