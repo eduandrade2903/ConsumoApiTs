@@ -32,6 +32,12 @@ app.get('/api/v1/user', (req, res) => {
     res.status(200).json(formulario)
 });
 
+// GET by ID
+app.get('/api/v1/user/:id', (req, res) => {
+    let index = buscaCadastro(req.params.id);
+    res.json(formulario[index]);
+});
+
 // POST method
 app.post('/api/v1/user', (req, res) => {
     formulario.push(req.body);
