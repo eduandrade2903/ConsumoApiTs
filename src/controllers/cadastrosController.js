@@ -48,6 +48,18 @@ class CadastroController {
             }
         })
     }
+
+    static excluirCadastro = (req, res) => {
+        const id = req.params.id;
+
+        cadastros.findByIdAndDelete(id, (err) => {
+            if(!err) {
+                res.status(200).send({message: 'Usuário removido com sucesso'});
+            } else {
+                res.status(500).send({message: err.message})
+            }
+        })
+    }
 }
 
 
