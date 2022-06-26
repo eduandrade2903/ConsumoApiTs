@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-mongoose.connect("mongodb+srv://gabe:123@api.xgyodgl.mongodb.net/api-node");
+mongoose.connect("mongodb+srv://api:123@api-node.tola8zq.mongodb.net/api-node");
 
 let db = mongoose.connection;
 
