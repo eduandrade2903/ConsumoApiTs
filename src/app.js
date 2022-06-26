@@ -1,61 +1,43 @@
 //importanto o express
 import express from "express";
+import db from "./config/dbConnect.js";
+import cadastros from "./models/Cadastro.js";
+import routes from "./routes/index.js";
+
+
+db.on("error", console.log.bind(console, 'Erro de conexão'))
+db.once("open", () => {
+    console.log('Conexão com o banco feita com sucesso')
+})
+
 
 const app = express();
+
+app.use(express.json());
+
+routes(app);
 
 // tranformar GET/PUT em objeto para conseguir manipular
 app.use(express.json());
 
-const formulario = [
-    {id: 1, 
-        "name": "Joao Silva",
-        "cpf": "908.415.400-20",
-        "birthDate": "01/01/2000",
-        "email": "joao@silva@compasso.com",
-        "password": "swordfish",
-        "address": "streetA",
-        "number": "A25",
-        "complement": "house",
-        "city": "São Paulo",
-        "state": "SP",
-        "country": "Brasil",
-        "zipCode": "93950-000"
-    }
-];
-
-app.get('/', (req, res) => {
-    res.status(200).send('Formulario');
-});
-
-// GET method
-app.get('/api/v1/user', (req, res) => {
-    res.status(200).json(formulario)
-});
-
 // GET by ID
 app.get('/api/v1/user/:id', (req, res) => {
     let index = buscaCadastro(req.params.id);
-    res.json(formulario[index]);
-});
-
-// POST method
-app.post('/api/v1/user', (req, res) => {
-    formulario.push(req.body);
-    res.status(201).send('O formulario foi cadastrado com sucesso');
+    res.json(cadastros[index]);
 });
 
 // PUT method
 app.put('/api/v1/user/:id', (req, res) => {
     let index = buscaCadastro(req.params.id);
     // esta alterando somente o name, o restante não
-    formulario[index].name = req.body.name;
-    res.json(formulario);
+    cadastros[index].name = req.body.name;
+    res.json(cadastros);
 });
 
 
 // Function to fetch ID
 function buscaCadastro(id) {
-    return formulario.findIndex(cadastro => cadastro.id == id);
+    return cadastros.findIndex(cadastro => cadastro.id == id);
 }
 
 
