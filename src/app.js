@@ -9,7 +9,6 @@ db.once("open", () => {
     console.log('Conexão com o banco feita com sucesso')
 })
 
-
 const app = express();
 
 // tranformar GET/PUT em objeto para conseguir manipular

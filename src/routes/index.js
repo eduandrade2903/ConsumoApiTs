@@ -1,5 +1,6 @@
 import express from "express";
 import cadastros from "./cadastrosRoutes.js";
+import tasks from "./tasksRoutes.js";
 
 const routes = (app) => {
     app.route('/').get((req, res) => {
@@ -8,7 +9,8 @@ const routes = (app) => {
 
     app.use(
         express.json(),
-        cadastros
+        cadastros, 
+        tasks
     )
 };
 

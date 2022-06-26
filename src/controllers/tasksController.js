@@ -1,48 +1,48 @@
-import cadastros from "../models/Cadastro.js";
+import tasks from "../models/Task.js";
 
-class CadastroController {
+class TaskController {
 
     // GET method persisting data in MongoDB
-    static listarCadastros = (req, res) => { 
-        cadastros.find((err, cadastros) => {
-            res.status(200).json(cadastros)
+    static listarTasks = (req, res) => { 
+        tasks.find((err, tasks) => {
+            res.status(200).json(tasks)
         })
     }
 
     // GET by ID
-    static listarCadastrosPorId = (req, res) => {
+    static listarTaskPorId = (req, res) => {
         const id = req.params.id;
 
-        cadastros.findById(id, (err, cadastros) => {
+        tasks.findById(id, (err, tasks) => {
             if(err) {
                 res.status(404).send({message: `${err.message} - Usuário não encontrado.`});
             } else {
-                res.status(200).send(cadastros);
+                res.status(200).send(tasks);
             }
         })
     }
 
     // POST method
-    static criarCadastro = (req, res) => {
-        let cadastro = new cadastros(req.body);
+    static criarTask = (req, res) => {
+        let task = new tasks(req.body);
 
-        cadastro.save((err) => {
+        task.save((err) => {
 
             if(err) {
                 res.status(500).send({message: `${err.message} - Falha ao cadastrar usuário.`})
             } else {
-                res.status(201).send(cadastro.toJSON())
+                res.status(201).send(task.toJSON())
             }
         })
     }
 
     // PUT method
-    static atualizarCadastro = (req, res) => {
+    static atualizarTask = (req, res) => {
         const id = req.params.id;
 
-        cadastros.findByIdAndUpdate(id, {$set: req.body}, (err) => {
+        tasks.findByIdAndUpdate(id, {$set: req.body}, (err) => {
             if(!err) {
-                res.status(200).send({message: 'Cadastro atualizado com sucesso'})
+                res.status(200).send({message: 'Task atualizado com sucesso'})
             } else {
                 res.status(500).send({message: err.message})
             }
@@ -50,10 +50,10 @@ class CadastroController {
     }
 
     // DELETE method
-    static excluirCadastro = (req, res) => {
+    static excluirTask = (req, res) => {
         const id = req.params.id;
 
-        cadastros.findByIdAndDelete(id, (err) => {
+        tasks.findByIdAndDelete(id, (err) => {
             if(!err) {
                 res.status(200).send({message: 'Usuário removido com sucesso'});
             } else {
@@ -64,4 +64,4 @@ class CadastroController {
 }
 
 
-export default CadastroController
+export default TaskController;
