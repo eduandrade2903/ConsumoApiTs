@@ -4,6 +4,7 @@ const cadastroSchema = new mongoose.Schema(
     {
     id: {type: String},
     name: {type: String, required: true},
+    user: {type: mongoose.Schema.Types.ObjectId, ref: 'tasks', required: true},
     cpf: {type: String, required: true},
     birthDate: {type: Date, required: true},
     email: {type: String, required: true},

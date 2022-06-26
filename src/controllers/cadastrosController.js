@@ -4,7 +4,9 @@ class CadastroController {
 
     // GET method persisting data in MongoDB
     static listarCadastros = (req, res) => { 
-        cadastros.find((err, cadastros) => {
+        cadastros.find()
+            .populate('user')
+            .exec((err, cadastros) => {
             res.status(200).json(cadastros)
         })
     }
@@ -13,7 +15,7 @@ class CadastroController {
     static listarCadastrosPorId = (req, res) => {
         const id = req.params.id;
 
-        cadastros.findById(id, (err, cadastros) => {
+        cadastros.findById((err, cadastros) => {
             if(err) {
                 res.status(404).send({message: `${err.message} - Usuário não encontrado.`});
             } else {
